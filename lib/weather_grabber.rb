@@ -13,7 +13,17 @@ class WeatherGrabber
   end
   
   def last_rain
-    5.minutes.ago
+    observation_url = "http://datapoint.metoffice.gov.uk/public/data/val/wxobs/all/json/#{@location_id}?res=hourly&key=#{@api_key}"
+    json = JSON.parse(open(observation_url).read)
+    # Find last time there was rain
+    json["SiteRep"]["DV"]["Location"]["Period"].reverse.each do |period|
+      date = Date.parse(period["value"])
+      period["Rep"].reverse.each do |forecast|
+        if wet?(forecast["W"])
+          return date + forecast['$'].to_i.minutes
+        end
+      end
+    end
   end
   
   def next_rain
@@ -57,6 +67,10 @@ class WeatherGrabber
   
   def crap_iso8601(datetime)
     datetime.iso8601.gsub('+00:00','Z')
+  end
+  
+  def wet?(code)
+    (9..30).include?(code.to_i)
   end
   
   def lookup_weather_code(code)

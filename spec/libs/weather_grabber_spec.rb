@@ -9,7 +9,7 @@ describe WeatherGrabber, :vcr do
   end
   
   it "should give back the last time there was rain" do
-    @weather.last_rain.should == 5.minutes.ago
+    @weather.last_rain.should == DateTime.new(2014,02,18,17,00)
   end
     
   it "should give back the next time there will be rain" do
