@@ -3,16 +3,17 @@ require_relative '../../lib/weather_grabber'
 
 describe WeatherGrabber, :vcr do
   
-  before :all do
+  before :all do    
     @weather = WeatherGrabber.new
+    Timecop.freeze
   end
   
   it "should give back the last time there was rain" do
-    @weather.last_rain.should == "About 5 minutes ago"
+    @weather.last_rain.should == 5.minutes.ago
   end
     
   it "should give back the next time there will be rain" do
-    @weather.next_rain.should == "In about 2 hours"
+    @weather.next_rain.should == 2.hours.from_now
   end
   
   it "should give back the current temperature" do
@@ -21,6 +22,10 @@ describe WeatherGrabber, :vcr do
 
   it "should give back the outlook" do
     @weather.outlook.should == "Rainy"
+  end
+
+  after :all do
+    Timecop.return
   end
 
 end

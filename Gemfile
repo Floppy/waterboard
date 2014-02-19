@@ -4,7 +4,8 @@ ruby '2.1.0'
 #ruby-gemset=waterboard
 
 gem 'dashing'
-gem 'activesupport'
+gem 'activesupport', '~> 4.0'
+gem 'actionview', '~> 4.0'
 
 group :development, :test do
 
@@ -14,5 +15,6 @@ group :development, :test do
   gem 'webmock'
   gem 'badgerbadgerbadger'
   gem 'coveralls', require: false
+  gem 'timecop'
 
 end
