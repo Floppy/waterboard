@@ -1,8 +1,9 @@
 [![Build Status](http://img.shields.io/travis/Floppy/waterboard.svg)](https://travis-ci.org/Floppy/waterboard)
 [![Dependency Status](http://img.shields.io/gemnasium/Floppy/waterboard.svg)](https://gemnasium.com/Floppy/waterboard)
+[![Coverage Status](http://img.shields.io/coveralls/Floppy/waterboard.svg)](https://coveralls.io/r/Floppy/waterboard)
 [![Code Climate](http://img.shields.io/codeclimate/github/Floppy/waterboard.svg)](https://codeclimate.com/github/Floppy/waterboard)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://Floppy.mit-license.org)
-[![Badges](http://img.shields.io/:badges-5/5-ff6799.svg)](https://github.com/pikesley/badger)
+[![Badges](http://img.shields.io/:badges-6/6-ff6799.svg)](https://github.com/pikesley/badger)
 
 # Waterboard
 

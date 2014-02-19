@@ -13,5 +13,6 @@ group :development, :test do
   gem 'vcr'
   gem 'webmock'
   gem 'badgerbadgerbadger'
+  gem 'coveralls', require: false
 
 end
