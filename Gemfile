@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'dashing'
+ruby '2.1.0'
+#ruby-gemset=weather-dashboard
 
+gem 'dashing'
