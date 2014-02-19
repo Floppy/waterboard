@@ -24,3 +24,11 @@ open http://localhost:3030/weather
 ## Data Sources
 
 The app was written as a way to explore the Met Office's DataPoint service. All data comes from there. See `lib/weather_grabber.rb` for more details.
+
+## Environment
+
+Set the following environment variables, either in a `.env` file or in the system environment:
+
+```
+DATAPOINT_API_KEY: xxxxxxx
+```

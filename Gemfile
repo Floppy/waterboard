@@ -7,6 +7,7 @@ gem 'rake'
 gem 'dashing'
 gem 'activesupport', '~> 4.0'
 gem 'actionview', '~> 4.0'
+gem 'dotenv'
 
 group :development, :test do
 
