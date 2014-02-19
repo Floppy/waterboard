@@ -17,7 +17,7 @@ describe WeatherGrabber, :vcr do
   end
   
   it "should give back the current temperature" do
-    @weather.temperature.should == 8.0
+    @weather.temperature.should == 8.8
   end
 
   it "should give back the outlook" do
