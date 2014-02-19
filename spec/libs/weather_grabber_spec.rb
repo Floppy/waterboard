@@ -21,7 +21,7 @@ describe WeatherGrabber, :vcr do
   end
 
   it "should give back the outlook" do
-    @weather.outlook.should == "Rainy"
+    @weather.outlook.should == "Cloudy"
   end
 
   after :all do

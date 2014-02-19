@@ -37,7 +37,11 @@ class WeatherGrabber
   end
   
   def outlook
-    "Rainy"
+    # Get forecasts
+    forecasts_url = "http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/#{@forecast_id}?res=daily&key=#{@api_key}"
+    json = JSON.parse(open(forecasts_url).read)    
+    code = json["SiteRep"]["DV"]["Location"]["Period"][0]["Rep"][0]["W"]
+    lookup_weather_code(code)
   end
   
   def temperature
@@ -53,6 +57,42 @@ class WeatherGrabber
   
   def crap_iso8601(datetime)
     datetime.iso8601.gsub('+00:00','Z')
+  end
+  
+  def lookup_weather_code(code)
+    {
+      0 =>   "Clear",
+      1 =>   "Sunny",
+      2 =>   "Partly cloudy",
+      3 =>   "Partly cloudy",
+      4 =>   "",
+      5 =>   "Mist",
+      6 =>   "Fog",
+      7 =>   "Cloudy",
+      8 =>   "Overcast",
+      9 =>   "Light showers",
+      10 =>  "Light showers",
+      11 =>  "Drizzle",
+      12 =>  "Light rain",
+      13 =>  "Heavy showers",
+      14 =>  "Heavy showers",
+      15 =>  "Heavy rain",
+      16 =>  "Sleet showers",
+      17 =>  "Sleet showers",
+      18 =>  "Sleet",
+      19 =>  "Hail showers",
+      20 =>  "Hail showers",
+      21 =>  "Hail",
+      22 =>  "Light snow showers",
+      23 =>  "Light snow showers",
+      24 =>  "Light snow",
+      25 =>  "Heavy snow showers",
+      26 =>  "Heavy snow showers",
+      27 =>  "Heavy snow",
+      28 =>  "Thundery showers",
+      29 =>  "Thundery showers",
+      30 =>  "Thunder",
+    }[code.to_i]
   end
   
 end
