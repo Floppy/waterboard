@@ -12,5 +12,6 @@ group :development, :test do
   gem 'rspec'
   gem 'vcr'
   gem 'webmock'
+  gem 'badgerbadgerbadger'
 
 end
