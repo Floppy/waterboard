@@ -8,6 +8,7 @@ class WeatherGrabber
   
   def initialize
     @location_id = ENV['OBSERVATION_LOCATION_ID']
+    @forecast_id = ENV['FORECAST_LOCATION_ID']
     @api_key = ENV['DATAPOINT_API_KEY']
   end
   
@@ -16,7 +17,23 @@ class WeatherGrabber
   end
   
   def next_rain
-    2.hours.from_now
+    # Find time of future forecasts
+    capabilities_url = "http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/#{@forecast_id}/json/capabilities?res=3hourly&key=#{@api_key}"
+    json = JSON.parse(open(capabilities_url).read)
+    forecasts = json['Resource']['TimeSteps']['TS'].select{|x| DateTime.parse(x) >= DateTime.now}.map{|x| DateTime.parse(x)}
+    # Get forecasts
+    forecasts_url = "http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/#{@forecast_id}?res=3hourly&key=#{@api_key}"
+    json = JSON.parse(open(forecasts_url).read)    
+    # Find next time there is a decent chance of rain
+    json["SiteRep"]["DV"]["Location"]["Period"].each do |period|
+      date = Date.parse(period["value"])
+      period["Rep"].each do |forecast|
+        if forecast["Pp"].to_i >= ENV["RAIN_THRESHOLD"].to_i
+          return date + forecast['$'].to_i.minutes
+        end
+      end
+    end
+    nil
   end
   
   def outlook

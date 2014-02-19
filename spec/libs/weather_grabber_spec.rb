@@ -13,7 +13,7 @@ describe WeatherGrabber, :vcr do
   end
     
   it "should give back the next time there will be rain" do
-    @weather.next_rain.should == 2.hours.from_now
+    @weather.next_rain.should == DateTime.new(2014,02,20,00,00)
   end
   
   it "should give back the current temperature" do

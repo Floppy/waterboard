@@ -32,4 +32,6 @@ Set the following environment variables, either in a `.env` file or in the syste
 ```
 DATAPOINT_API_KEY: xxxxxxx
 OBSERVATION_LOCATION_ID: 1234
+FORECAST_LOCATION_ID: 123456
+RAIN_THRESHOLD: 25
 ```
