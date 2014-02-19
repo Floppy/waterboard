@@ -1,0 +1,86 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://datapoint.metoffice.gov.uk/public/data/val/wxobs/3769/json/capabilities?key=<DATAPOINT_API_KEY>&res=hourly
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - WaveServer 1.0
+      Content-Type:
+      - application/json
+      Access-Control-Allow-Origin:
+      - "*"
+      Vary:
+      - Accept-Encoding
+      Cache-Control:
+      - public, no-transform, must-revalidate, max-age=120
+      Date:
+      - Wed, 19 Feb 2014 14:02:43 GMT
+      Content-Length:
+      - '617'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: "{\"Resource\":{\"res\":\"hourly\",\"type\":\"wxobs\",\"TimeSteps\":{\"TS\":[\"2014-02-18T14:00:00Z\",\"2014-02-18T15:00:00Z\",\"2014-02-18T16:00:00Z\",\"2014-02-18T17:00:00Z\",\"2014-02-18T18:00:00Z\",\"2014-02-18T19:00:00Z\",\"2014-02-18T20:00:00Z\",\"2014-02-18T21:00:00Z\",\"2014-02-18T22:00:00Z\",\"2014-02-18T23:00:00Z\",\"2014-02-19T00:00:00Z\",\"2014-02-19T01:00:00Z\",\"2014-02-19T02:00:00Z\",\"2014-02-19T03:00:00Z\",\"2014-02-19T04:00:00Z\",\"2014-02-19T05:00:00Z\",\"2014-02-19T06:00:00Z\",\"2014-02-19T07:00:00Z\",\"2014-02-19T08:00:00Z\",\"2014-02-19T09:00:00Z\",\"2014-02-19T10:00:00Z\",\"2014-02-19T11:00:00Z\",\"2014-02-19T12:00:00Z\",\"2014-02-19T13:00:00Z\"]}}}"
+    http_version: 
+  recorded_at: Wed, 19 Feb 2014 13:00:00 GMT
+- request:
+    method: get
+    uri: http://datapoint.metoffice.gov.uk/public/data/val/wxobs/all/json/3769?key=<DATAPOINT_API_KEY>&res=hourly&time=2014-02-19T13:00:00Z
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - WaveServer 1.0
+      Content-Type:
+      - application/json
+      Access-Control-Allow-Origin:
+      - "*"
+      Vary:
+      - Accept-Encoding
+      Cache-Control:
+      - public, no-transform, must-revalidate, max-age=120
+      Date:
+      - Wed, 19 Feb 2014 14:02:43 GMT
+      Content-Length:
+      - '832'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: "{\"SiteRep\":{\"Wx\":{\"Param\":[{\"name\":\"G\",\"units\":\"mph\",\"$\":\"Wind
+        Gust\"},{\"name\":\"T\",\"units\":\"C\",\"$\":\"Temperature\"},{\"name\":\"V\",\"units\":\"m\",\"$\":\"Visibility\"},{\"name\":\"D\",\"units\":\"compass\",\"$\":\"Wind
+        Direction\"},{\"name\":\"S\",\"units\":\"mph\",\"$\":\"Wind Speed\"},{\"name\":\"W\",\"units\":\"\",\"$\":\"Weather
+        Type\"},{\"name\":\"P\",\"units\":\"hpa\",\"$\":\"Pressure\"},{\"name\":\"Pt\",\"units\":\"Pa\\/s\",\"$\":\"Pressure
+        Tendency\"},{\"name\":\"Dp\",\"units\":\"C\",\"$\":\"Dew Point\"},{\"name\":\"H\",\"units\":\"%\",\"$\":\"Screen
+        Relative Humidity\"}]},\"DV\":{\"dataDate\":\"2014-02-19T13:00:00Z\",\"type\":\"Obs\",\"Location\":{\"i\":\"3769\",\"lat\":\"51.15\",\"lon\":\"-0.2333\",\"name\":\"CHARLWOOD\",\"country\":\"ENGLAND\",\"continent\":\"EUROPE\",\"elevation\":\"67.0\",\"Period\":{\"type\":\"Day\",\"value\":\"2014-02-19Z\",\"Rep\":{\"D\":\"WSW\",\"H\":\"85.0\",\"P\":\"1013\",\"S\":\"6\",\"T\":\"8.8\",\"V\":\"25000\",\"W\":\"7\",\"Pt\":\"R\",\"Dp\":\"6.4\",\"$\":\"780\"}}}}}}"
+    http_version: 
+  recorded_at: Wed, 19 Feb 2014 13:00:00 GMT
+recorded_with: VCR 2.8.0
