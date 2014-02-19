@@ -7,14 +7,12 @@ Dotenv.load
 class WeatherGrabber
   
   def initialize
-    @location_id = ENV['OBSERVATION_LOCATION_ID']
+    @observation_id = ENV['OBSERVATION_LOCATION_ID']
     @forecast_id = ENV['FORECAST_LOCATION_ID']
-    @api_key = ENV['DATAPOINT_API_KEY']
   end
   
   def last_rain
-    observation_url = "http://datapoint.metoffice.gov.uk/public/data/val/wxobs/all/json/#{@location_id}?res=hourly&key=#{@api_key}"
-    json = JSON.parse(open(observation_url).read)
+    json = get "/wxobs/all/json/#{@observation_id}", res: "hourly"
     # Find last time there was rain
     json["SiteRep"]["DV"]["Location"]["Period"].reverse.each do |period|
       date = Date.parse(period["value"])
@@ -28,12 +26,10 @@ class WeatherGrabber
   
   def next_rain
     # Find time of future forecasts
-    capabilities_url = "http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/#{@forecast_id}/json/capabilities?res=3hourly&key=#{@api_key}"
-    json = JSON.parse(open(capabilities_url).read)
+    json = get "/wxfcs/#{@forecast_id}/json/capabilities", res: "3hourly"
     forecasts = json['Resource']['TimeSteps']['TS'].select{|x| DateTime.parse(x) >= DateTime.now}.map{|x| DateTime.parse(x)}
     # Get forecasts
-    forecasts_url = "http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/#{@forecast_id}?res=3hourly&key=#{@api_key}"
-    json = JSON.parse(open(forecasts_url).read)    
+    json = get "/wxfcs/all/json/#{@forecast_id}", res: "3hourly"
     # Find next time there is a decent chance of rain
     json["SiteRep"]["DV"]["Location"]["Period"].each do |period|
       date = Date.parse(period["value"])
@@ -48,18 +44,15 @@ class WeatherGrabber
   
   def outlook
     # Get forecasts
-    forecasts_url = "http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/#{@forecast_id}?res=daily&key=#{@api_key}"
-    json = JSON.parse(open(forecasts_url).read)    
+    json = get("/wxfcs/all/json/#{@forecast_id}", res: "daily")
     code = json["SiteRep"]["DV"]["Location"]["Period"][0]["Rep"][0]["W"]
     lookup_weather_code(code)
   end
   
   def temperature
-    capabilities_url = "http://datapoint.metoffice.gov.uk/public/data/val/wxobs/#{@location_id}/json/capabilities?res=hourly&key=#{@api_key}"
-    json = JSON.parse(open(capabilities_url).read)
+    json = get "/wxobs/#{@observation_id}/json/capabilities", res: "hourly"
     @latest_observation_time = DateTime.parse(json['Resource']['TimeSteps']['TS'].last)
-    observation_url = "http://datapoint.metoffice.gov.uk/public/data/val/wxobs/all/json/#{@location_id}?res=hourly&time=#{crap_iso8601(@latest_observation_time)}&key=#{@api_key}"
-    json = JSON.parse(open(observation_url).read)
+    json = get "/wxobs/all/json/#{@observation_id}", res: "hourly", time: crap_iso8601(@latest_observation_time)
     json["SiteRep"]["DV"]["Location"]["Period"]["Rep"]["T"].to_f
   end
   
@@ -107,6 +100,13 @@ class WeatherGrabber
       29 =>  "Thundery showers",
       30 =>  "Thunder",
     }[code.to_i]
+  end
+  
+  def get(path, args = {})
+    args.merge!(key: ENV['DATAPOINT_API_KEY'])
+    url = "http://datapoint.metoffice.gov.uk/public/data/val#{path}?#{args.to_query}"
+    
+    JSON.parse(open(url).read)
   end
   
 end
