@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 ruby '2.1.0'
-#ruby-gemset=weather-dashboard
+#ruby-gemset=waterboard
 
 gem 'dashing'
 
