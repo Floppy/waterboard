@@ -1,5 +1,12 @@
 language: ruby
 rvm:
 - 2.1.0
-env: DATAPOINT_API_KEY=fake-api-key OBSERVATION_LOCATION_ID=3769 FORECAST_LOCATION_ID=324060 RAIN_THRESHOLD=25
-
+env: DATAPOINT_API_KEY=fake-api-key OBSERVATION_LOCATION_ID=3769 FORECAST_LOCATION_ID=324060
+  RAIN_THRESHOLD=25
+deploy:
+  provider: heroku
+  api_key:
+    secure: hqgGy82dUqsTw3DbKJygHfrAhu6fTRxEOVnv+AQhn4EpxW2h38XtuP85xd8hgtTfgIQt2boO71I7cR/XCr+jnM8xRZnwmYM3QSvveprN/CGAgSaWVeBw52LDHJgZT1S+yqsCcMq6iPKv5c5hjXJwLvUCYrkcptAnv0xgvBCRF6E=
+  app: waterboard
+  on:
+    repo: Floppy/waterboard
